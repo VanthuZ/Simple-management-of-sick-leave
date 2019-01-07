@@ -1,24 +1,33 @@
 package pl.edu.home;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Company {
     Scanner scanner2 = new Scanner(System.in);
     private String name;
-    private List<String> departmentList;
+    private String department;
+    private ArrayList<String> departmentList = new ArrayList<>();
+
+    public Company(String name){
+        this.name = name;
+    }
 
     public Company() {
         System.out.println("Wprowadź nazwę firmy");
         this.name = scanner2.nextLine();
-
-        System.out.println("Czy chcesz utworzyć odział dla tej firmy?  T/N");
-        if(scanner2.nextLine().toUpperCase().charAt(0) == 'T'){
-           departmentList = new ArrayList<>();
-           System.out.println("Podaj nazwę odziału");
-           departmentList.add(scanner2.nextLine());
-            System.out.println();
+        System.out.println("Czy chcesz wprowadzić nazwę odziału  T/N");
+        if(scanner2.nextLine().toUpperCase().charAt(0) == 'T') {
+            do {
+                System.out.println("Podaj nazwę odziału");
+                String tempName = scanner2.nextLine();
+                departmentList.add(tempName);
+                System.out.println();
+                System.out.println("Czy chcesz wprowadzić kolejny odział? T/N");
+            }
+            while (scanner2.nextLine().toUpperCase().charAt(0) == 'T');
+        }else{
+            this.department = "-";
         }
     }
 
@@ -41,15 +50,15 @@ public class Company {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDepartment() {
+        return department;
     }
 
-    public List<String> getDepartmentList() {
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public ArrayList<String> getDepartmentList() {
         return departmentList;
-    }
-
-    public void setDepartmentList(List<String> departmentList) {
-        this.departmentList = departmentList;
     }
 }

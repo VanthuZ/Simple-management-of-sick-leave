@@ -1,7 +1,6 @@
 package pl.edu.home;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,25 +17,29 @@ public class Person {
     private String whoPayForSickLeave;
 
     //basic constructor for manual input
-    public Person(List<Company> companyList) {
+    public Person(Company selectedCompany) {
         System.out.println("Wprowadź imię");
         this.name = scanner.nextLine();
         System.out.println("Wprowadź nazwisko");
         this.lastName = scanner.nextLine();
-        System.out.println("Wprowadź nazwę firmy");
-        String tempName = scanner.nextLine();
-        //TODO fix it, not working well
-        for(Company company : companyList){
-           if(company.getName().equals(tempName)){
-               this.company = company;
-           }
+        company = new Company(selectedCompany.getName());
+        if(selectedCompany.getDepartmentList().size() == 0){
+            this.company.setDepartment("-");
+        }else{
+            System.out.println("Do jakiego odziału należy pracownik");
+            for(int i = 1; i <= selectedCompany.getDepartmentList().size(); i++){
+                System.out.println("Nr: " + i + " " + selectedCompany.getDepartmentList().get(i-1));
+            }
+            this.company.setDepartment(selectedCompany.getDepartmentList().get(Integer.parseInt(scanner.nextLine())-1));
         }
+
         System.out.println("Wprowadź okres umowy");
         this.periodOfEmployment = scanner.nextLine();
         this.employmentState = "Zatrudniony";
         System.out.println("Wprowadź status. Pracownik(P) czy Uczeń(U)");
         this.employeeOrStudent = scanner.nextLine().charAt(0);
         this.whoPayForSickLeave = "Pracodawca";
+
     }
 
     public void releaseEmployee(){
@@ -60,6 +63,14 @@ public class Person {
         }
     }
 
+    public int numberOfDaysOnSickLeave(){
+        int numberOfDays = 0;
+        for(Map.Entry<String, Integer> entry : this.sickLeaveDateAndDays.entrySet()){
+            numberOfDays += entry.getValue();
+        }
+        return numberOfDays;
+    }
+
     public void showNumbersOfDaysOnSickkLeave(){
         int numberOfDays = 0;
         for(Map.Entry<String, Integer> entry : this.sickLeaveDateAndDays.entrySet()){
@@ -74,8 +85,15 @@ public class Person {
             numberOfDays += entry.getValue();
         }
         if(numberOfDays >= 33){
-            System.out.println(this.name + " " + this.lastName);
+            System.out.println(this.name + " " + this.lastName + " łączna ilość dni na zwolnieniu " + numberOfDays);
         }
+    }
+
+    public void showBasicInformation(){
+        System.out.println(name + " " + lastName + " Firma: " + company.getName() + " Odział: " + company.getDepartment() + "\n"
+                + "Czas umowy " + periodOfEmployment + " Status: " + employeeOrStudent + " Status: " + employmentState
+                + "\nŁączna ilość dni na zwolnieniu " + numberOfDaysOnSickLeave());
+
     }
 
     public String getName() {
@@ -90,24 +108,6 @@ public class Person {
         return company;
     }
 
-    public String getPeriodOfEmployment() {
-        return periodOfEmployment;
-    }
 
-    public String getEmploymentState() {
-        return employmentState;
-    }
-
-    public char getEmployeeOrStudent() {
-        return employeeOrStudent;
-    }
-
-    public String getDayOfRealease() {
-        return dayOfRealease;
-    }
-
-    public Map<String, Integer> getSickLeaveDateAndDays() {
-        return sickLeaveDateAndDays;
-    }
 }
 
