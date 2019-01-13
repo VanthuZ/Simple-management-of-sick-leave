@@ -13,8 +13,9 @@ public class Person {
     private String employmentState; //zatrudniony czy zwolniony
     private char employeeOrStudent; //P - pracownik, U - uczen
     private String dayOfRealease;
-    private Map<String,Integer> sickLeaveDateAndDays = new HashMap<>();
     private String whoPayForSickLeave;
+    private Map<String,Integer> sickLeaveDateAndDays = new HashMap<>();
+
 
     //basic constructor for manual input
     public Person(Company selectedCompany) {
@@ -63,6 +64,7 @@ public class Person {
         }
     }
 
+
     public int numberOfDaysOnSickLeave(){
         int numberOfDays = 0;
         for(Map.Entry<String, Integer> entry : this.sickLeaveDateAndDays.entrySet()){
@@ -108,6 +110,64 @@ public class Person {
         return company;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getPeriodOfEmployment() {
+        return periodOfEmployment;
+    }
+
+    public void setPeriodOfEmployment(String periodOfEmployment) {
+        this.periodOfEmployment = periodOfEmployment;
+    }
+
+    public String getEmploymentState() {
+        return employmentState;
+    }
+
+    public void setEmploymentState(String employmentState) {
+        this.employmentState = employmentState;
+    }
+
+    public char getEmployeeOrStudent() {
+        return employeeOrStudent;
+    }
+
+    public void setEmployeeOrStudent(char employeeOrStudent) {
+        this.employeeOrStudent = employeeOrStudent;
+    }
+
+    public String getDayOfRealease() {
+        return dayOfRealease;
+    }
+
+    public void setDayOfRealease(String dayOfRealease) {
+        this.dayOfRealease = dayOfRealease;
+    }
+
+    public Map<String, Integer> getSickLeaveDateAndDays() {
+        return sickLeaveDateAndDays;
+    }
+
+    public void setSickLeaveDateAndDays(Map<String, Integer> sickLeaveDateAndDays) {
+        this.sickLeaveDateAndDays = sickLeaveDateAndDays;
+    }
+
+    public String getWhoPayForSickLeave() {
+        return whoPayForSickLeave;
+    }
+
+    public void setWhoPayForSickLeave(String whoPayForSickLeave) {
+        this.whoPayForSickLeave = whoPayForSickLeave;
+    }
 }
 

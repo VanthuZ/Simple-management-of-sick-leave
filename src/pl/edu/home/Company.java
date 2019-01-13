@@ -1,6 +1,7 @@
 package pl.edu.home;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Company {
@@ -11,6 +12,11 @@ public class Company {
 
     public Company(String name){
         this.name = name;
+    }
+
+    public Company(String name, ArrayList<String> departmentList) {
+        this.name = name;
+        this.departmentList = departmentList;
     }
 
     public Company() {

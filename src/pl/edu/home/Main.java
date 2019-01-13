@@ -7,8 +7,15 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        List<Company> companyList = new ArrayList<>();
+
+        Reader readData = new Reader();
+        List<Company> companyList = readData.readCompany();
         List<Person> personList = new ArrayList<>();
+
+        SaveFile saveData = new SaveFile();
+
+
+
         Scanner scanner = new Scanner(System.in);
         int MainChoice;
         int choice;
@@ -54,6 +61,8 @@ public class Main {
                 }
 
                 case 4: {
+                    saveData.savePerson(personList);
+                    saveData.saveCompany(companyList);
                     return;
                 }
             }
