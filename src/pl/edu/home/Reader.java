@@ -24,20 +24,21 @@ public class Reader {
             lines = Files.readAllLines(file);
             for (String l : lines){
                 String[] line = l.split(";");
-                String[] department = l.split(",");
-                departmentList = new ArrayList<>();
-                for(int i = 0; i < department.length; i++) {
+                if(line.length >= 2){
 
-                    departmentList.add(department[i].substring(department[i].lastIndexOf(";")+1));
+                        String[] department = line[1].split(",");
+                        departmentList = new ArrayList<>();
+                        for (int i = 0; i < department.length; i++) {
 
+                            departmentList.add(department[i].substring(department[i].lastIndexOf(";") + 1));
+
+                        }
+                        companyList.add(new Company(line[0], departmentList));
+
+                }else if(line.length == 1){
+                    companyList.add(new Company(line[0]));
                 }
-                companyList.add(new Company(line[0], departmentList));
-
-
-
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

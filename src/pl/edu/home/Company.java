@@ -10,6 +10,9 @@ public class Company {
     private String department;
     private ArrayList<String> departmentList = new ArrayList<>();
 
+
+
+
     public Company(String name){
         this.name = name;
     }

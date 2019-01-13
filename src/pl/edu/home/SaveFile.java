@@ -45,15 +45,15 @@ public class SaveFile {
         try {
             fileWriter = new FileWriter("CompanyDatabase.csv");
             printWriter = new PrintWriter(fileWriter);
-            i = 0;
+
             for(Company company : companyList){
                 printWriter.print(company.getName() + ";" );
-
+                i = 0;
                 for(String department : company.getDepartmentList()){
                     if(++i == company.getDepartmentList().size()) {
                         // last iteration
                         printWriter.print(department + ";");
-                    }else{
+                    }else if(company.getDepartmentList().size() != 0){
                         printWriter.print(department + ",");
                     }
 
