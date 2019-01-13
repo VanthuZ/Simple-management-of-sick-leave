@@ -15,19 +15,25 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         int MainChoice;
-        int choice;
+        int choice = 0;
         int RaportChoice;
         int AllEmployeeRaportChoice;
         Company selectedCompany = null;
 
-        System.out.println("***Zarządzanie zwolnieniami chorobowymi");
+        System.out.println("***Zarządzanie zwolnieniami chorobowymi***");
         while (true) {
 
             System.out.println("1. Wybór firmy na której chcesz pracować");
             System.out.println("2. Wyświetl listę dostępnych firm");
             System.out.println("3. Dodaj nową firmę");
             System.out.println("4. Zamknięcie programu");
-            MainChoice = Integer.parseInt(scanner.nextLine());
+            try {
+                MainChoice = Integer.parseInt(scanner.nextLine());
+            }catch (NumberFormatException e){
+                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                continue;
+            }
+
             switch (MainChoice) {
 
                 case 1: {
@@ -35,8 +41,14 @@ public class Main {
                         System.out.println("Nr. " + i + " " + companyList.get(i - 1).getName());
                     }
                     System.out.println("Podaj numer firmy");
-                    int tempNumber = Integer.parseInt(scanner.nextLine());
-                    selectedCompany = companyList.get(tempNumber - 1);
+                    try {
+                        int tempNumber = Integer.parseInt(scanner.nextLine());
+                        selectedCompany = companyList.get(tempNumber - 1);
+                    }catch (NumberFormatException e){
+                        System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                        continue;
+                    }
+
 
                     if (selectedCompany == null) {
                         System.out.println("Błędny numer");
@@ -73,9 +85,14 @@ public class Main {
                 System.out.println("4. Raporty");
                 System.out.println("5. Wyjście do głównego menu");
 
-                choice = Integer.parseInt(scanner.nextLine());
-                switch (choice) {
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                }catch (NumberFormatException e){
+                    System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                    continue;
+                }
 
+                switch (choice) {
                     case 1: {
                         personList.add(new Person(selectedCompany));
                         continue;
@@ -83,11 +100,16 @@ public class Main {
 
                     case 2: {
                         System.out.println("Podaj numer pracownika");
-                        int tempNumber = Integer.parseInt(scanner.nextLine());
                         for (int i = 1; i <= personList.size(); i++) {
                             System.out.println("Nr. " + i + personList.get(i - 1).getName() + personList.get(i - 1).getLastName());
                         }
-                        personList.get(tempNumber - 1).releaseEmployee();
+                        try {
+                            int tempNumber = Integer.parseInt(scanner.nextLine());
+                            personList.get(tempNumber - 1).releaseEmployee();
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            continue;
+                        }
                         continue;
                     }
 
@@ -98,8 +120,13 @@ public class Main {
                             }
                         }
                         System.out.println("Podaj numer pracownika");
-                        int tempNumber = Integer.parseInt(scanner.nextLine());
-                        personList.get(tempNumber - 1).addSickLeave();
+                        try {
+                            int tempNumber = Integer.parseInt(scanner.nextLine());
+                            personList.get(tempNumber - 1).addSickLeave();
+                        }catch(NumberFormatException e) {
+                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            continue;
+                        }
                         continue;
                     }
 
@@ -107,7 +134,13 @@ public class Main {
                         System.out.println("***Wybierz typ raportów");
                         System.out.println("1. Raporty dla indywidualnego pracownika");
                         System.out.println("2. Raporty dla wszystkich pracowników");
-                        RaportChoice = Integer.parseInt(scanner.nextLine());
+
+                        try {
+                            RaportChoice = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            continue;
+                        }
 
                         if (RaportChoice == 1) {
                             System.out.println("***Raporty dla indywidualnego pracownika");
@@ -118,8 +151,13 @@ public class Main {
                                 }
                             }
                             System.out.println("Podaj numer pracownika");
-                            int tempNumber = Integer.parseInt(scanner.nextLine());
-                            personList.get(tempNumber - 1).showSickLeave();
+                            try {
+                                int tempNumber = Integer.parseInt(scanner.nextLine());
+                                personList.get(tempNumber - 1).showSickLeave();
+                            }catch(NumberFormatException e) {
+                                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                                continue;
+                            }
 
 
                         } else if (RaportChoice == 2) {
@@ -129,7 +167,13 @@ public class Main {
                             System.out.println("3. Lista pracowników za których płaci urząd");
                             System.out.println("4. Informacje o pracownikach");
 
-                            AllEmployeeRaportChoice = Integer.parseInt(scanner.nextLine());
+                            try {
+                                AllEmployeeRaportChoice = Integer.parseInt(scanner.nextLine());
+                            }catch (NumberFormatException e){
+                                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                                continue;
+                            }
+
                             switch (AllEmployeeRaportChoice) {
 
                                 case 1: {
