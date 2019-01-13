@@ -17,6 +17,31 @@ public class Person {
     private Map<String,Integer> sickLeaveDateAndDays = new HashMap<>();
 
 
+    //contructor for read from database with sickLeaveDays
+    public Person(String name, String lastName, Company company, String periodOfEmployment, String employmentState,
+                  char employeeOrStudent, String dayOfRealease, Map<String, Integer> sickLeaveDateAndDays) {
+        this.name = name;
+        this.lastName = lastName;
+        this.company = company;
+        this.periodOfEmployment = periodOfEmployment;
+        this.employmentState = employmentState;
+        this.employeeOrStudent = employeeOrStudent;
+        this.dayOfRealease = dayOfRealease;
+        this.sickLeaveDateAndDays = sickLeaveDateAndDays;
+    }
+
+    //contructor for read from database without sickLeaveDays
+    public Person(String name, String lastName, Company company, String periodOfEmployment, String employmentState,
+                  char employeeOrStudent, String dayOfRealease) {
+        this.name = name;
+        this.lastName = lastName;
+        this.company = company;
+        this.periodOfEmployment = periodOfEmployment;
+        this.employmentState = employmentState;
+        this.employeeOrStudent = employeeOrStudent;
+        this.dayOfRealease = dayOfRealease;
+    }
+
     //basic constructor for manual input
     public Person(Company selectedCompany) {
         System.out.println("Wprowadź imię");

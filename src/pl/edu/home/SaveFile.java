@@ -9,27 +9,28 @@ import java.util.Map;
 public class SaveFile {
     FileWriter fileWriter;
     PrintWriter printWriter;
-    int i;
+
 
     public void savePerson(List<Person> personList){
+        int i;
         try {
 
             fileWriter = new FileWriter("PersonDatabase.csv");
             printWriter = new PrintWriter(fileWriter);
-            i = 0;
+
                 for(Person person : personList){
                     printWriter.print(person.getName() + ";" + person.getLastName() + ";" + person.getCompany().getName()
                             + ";" + person.getCompany().getDepartment() + ";" + person.getPeriodOfEmployment() + ";" +
                             person.getEmploymentState() + ";" + person.getEmployeeOrStudent() + ";" +
-                            person.getDayOfRealease() + ";" + person.getWhoPayForSickLeave() + ";");
-
+                            person.getDayOfRealease() + ";");
+                    i = 0;
                     for(Map.Entry<String, Integer> entry : person.getSickLeaveDateAndDays().entrySet()){
-                        if(i++ != person.getSickLeaveDateAndDays().size()) {
-                            printWriter.print(entry.getKey() + "," + entry.getValue() + ";");
-                        }else if(i++ == person.getSickLeaveDateAndDays().size()){
-                            printWriter.print(entry.getKey() + "," + entry.getValue() + ";");
-                        }
 
+                        if(++i == person.getSickLeaveDateAndDays().size()) {
+                            printWriter.print(entry.getKey() + "," + entry.getValue() + ";");
+                        }else{
+                            printWriter.print(entry.getKey() + "," + entry.getValue() + ",");
+                        }
                     }
                     printWriter.println();
                 }
@@ -38,10 +39,10 @@ public class SaveFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void saveCompany(List<Company> companyList){
+        int i;
         try {
             fileWriter = new FileWriter("CompanyDatabase.csv");
             printWriter = new PrintWriter(fileWriter);
@@ -56,7 +57,6 @@ public class SaveFile {
                     }else if(company.getDepartmentList().size() != 0){
                         printWriter.print(department + ",");
                     }
-
                 }
                 printWriter.println();
             }

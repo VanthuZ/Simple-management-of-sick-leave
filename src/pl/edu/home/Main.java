@@ -1,6 +1,6 @@
 package pl.edu.home;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,13 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        SaveFile saveData = new SaveFile();
         Reader readData = new Reader();
         List<Company> companyList = readData.readCompany();
-        List<Person> personList = new ArrayList<>();
-
-        SaveFile saveData = new SaveFile();
-
-
+        List<Person> personList = readData.readPerson(companyList);
 
         Scanner scanner = new Scanner(System.in);
         int MainChoice;
