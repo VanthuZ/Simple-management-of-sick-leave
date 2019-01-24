@@ -1,7 +1,8 @@
 package pl.edu.home;
 
+import jdk.internal.org.objectweb.asm.tree.LineNumberNode;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Company {
@@ -23,21 +24,23 @@ public class Company {
     }
 
     public Company() {
-        System.out.println("Wprowadź nazwę firmy");
-        this.name = scanner2.nextLine();
-        System.out.println("Czy chcesz wprowadzić nazwę odziału  T/N");
-        if(scanner2.nextLine().toUpperCase().charAt(0) == 'T') {
-            do {
-                System.out.println("Podaj nazwę odziału");
-                String tempName = scanner2.nextLine();
-                departmentList.add(tempName);
-                System.out.println();
-                System.out.println("Czy chcesz wprowadzić kolejny odział? T/N");
+
+            System.out.println("Wprowadź nazwę firmy");
+            this.name = scanner2.nextLine();
+            System.out.println("Czy chcesz wprowadzić nazwę odziału  T/N");
+            if (scanner2.nextLine().toUpperCase().charAt(0) == 'T') {
+                do {
+                    System.out.println("Podaj nazwę odziału");
+                    String tempName = scanner2.nextLine();
+                    departmentList.add(tempName);
+                    System.out.println();
+                    System.out.println("Czy chcesz wprowadzić kolejny odział? T/N");
+                }
+                while (scanner2.nextLine().toUpperCase().charAt(0) == 'T');
+            } else {
+                this.department = "-";
             }
-            while (scanner2.nextLine().toUpperCase().charAt(0) == 'T');
-        }else{
-            this.department = "-";
-        }
+
     }
 
     public void addNewDepartment(){
@@ -50,7 +53,7 @@ public class Company {
         for(int i = 0; i < departmentList.size(); i++){
             System.out.println(i + " " + departmentList.indexOf(i));
         }
-        System.out.println("Podaj numer odziały, który ma zostać usunięty");
+        System.out.println("Podaj numer odziału, który ma zostać usunięty");
         departmentList.remove(scanner2.nextInt());
     }
 

@@ -30,7 +30,7 @@ public class Main {
             try {
                 MainChoice = Integer.parseInt(scanner.nextLine());
             }catch (NumberFormatException e){
-                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
                 continue;
             }
 
@@ -40,33 +40,38 @@ public class Main {
                     for (int i = 1; i <= companyList.size(); i++) {
                         System.out.println("Nr. " + i + " " + companyList.get(i - 1).getName());
                     }
-                    System.out.println("Podaj numer firmy");
+                    System.out.println("\nPodaj numer firmy");
                     try {
                         int tempNumber = Integer.parseInt(scanner.nextLine());
                         selectedCompany = companyList.get(tempNumber - 1);
+                        break;
                     }catch (NumberFormatException e){
-                        System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                        System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
+                        continue;
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("\n!!! Podano błędny numer !!!\n");
                         continue;
                     }
 
-
-                    if (selectedCompany == null) {
-                        System.out.println("Błędny numer");
-                        continue;
-                    }
-                    break;
                 }
 
                 case 2: {
                     for (int i = 1; i <= companyList.size(); i++) {
                         System.out.println("Nr. " + i + " " + companyList.get(i - 1).getName());
                     }
+                    System.out.println();
                     continue;
                 }
 
                 case 3: {
-                    companyList.add(new Company());
-                    continue;
+                    try {
+                        companyList.add(new Company());
+                        continue;
+                    }catch (StringIndexOutOfBoundsException e){
+                        System.out.println("!!! Wystąpił błąd, firma nie zostało utworzona !!!\n");
+                        continue;
+                    }
+
                 }
 
                 case 4: {
@@ -74,6 +79,11 @@ public class Main {
                     saveData.saveCompany(companyList);
                     return;
                 }
+                default:{
+                    System.out.println("\n!!! Podano błędny numer !!!\n");
+                    continue;
+                }
+
             }
 
             do {
@@ -88,7 +98,7 @@ public class Main {
                 try {
                     choice = Integer.parseInt(scanner.nextLine());
                 }catch (NumberFormatException e){
-                    System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                    System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
                     continue;
                 }
 
@@ -101,30 +111,39 @@ public class Main {
                     case 2: {
                         System.out.println("Podaj numer pracownika");
                         for (int i = 1; i <= personList.size(); i++) {
-                            System.out.println("Nr. " + i + personList.get(i - 1).getName() + personList.get(i - 1).getLastName());
+                            if(personList.get(i - 1).getCompany().getName().equals(selectedCompany.getName())){
+                                System.out.println("Nr. " + i + personList.get(i - 1).getName() + personList.get(i - 1).getLastName());
+                            }
                         }
                         try {
                             int tempNumber = Integer.parseInt(scanner.nextLine());
                             personList.get(tempNumber - 1).releaseEmployee();
-                        } catch (NumberFormatException e) {
-                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            continue;
+                        } catch (NumberFormatException e){
+                            System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
+                            continue;
+                        }catch (IndexOutOfBoundsException e){
+                            System.out.println("\n!!! Podano błędny numer !!!\n");
                             continue;
                         }
-                        continue;
+
                     }
 
                     case 3: {
+                        System.out.println("Podaj numer pracownika");
                         for (int i = 1; i <= personList.size(); i++) {
-                            if (personList.get(i - 1).getCompany().getName().equals(selectedCompany.getName())) {
+                            if(personList.get(i - 1).getCompany().getName().equals(selectedCompany.getName())){
                                 System.out.println("Nr. " + i + " " + personList.get(i - 1).getName() + " " + personList.get(i - 1).getLastName());
                             }
                         }
-                        System.out.println("Podaj numer pracownika");
                         try {
                             int tempNumber = Integer.parseInt(scanner.nextLine());
                             personList.get(tempNumber - 1).addSickLeave();
-                        }catch(NumberFormatException e) {
-                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                        }catch (NumberFormatException e){
+                            System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
+                            continue;
+                        }catch (IndexOutOfBoundsException e){
+                            System.out.println("\n!!! Podano błędny numer !!!\n");
                             continue;
                         }
                         continue;
@@ -138,7 +157,7 @@ public class Main {
                         try {
                             RaportChoice = Integer.parseInt(scanner.nextLine());
                         } catch (NumberFormatException e) {
-                            System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
                             continue;
                         }
 
@@ -150,12 +169,16 @@ public class Main {
                                     System.out.println("Nr. " + i + " " + personList.get(i - 1).getName() + " " + personList.get(i - 1).getLastName());
                                 }
                             }
-                            System.out.println("Podaj numer pracownika");
+                            System.out.println("\nPodaj numer pracownika");
+
                             try {
                                 int tempNumber = Integer.parseInt(scanner.nextLine());
                                 personList.get(tempNumber - 1).showSickLeave();
-                            }catch(NumberFormatException e) {
-                                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                            }catch (NumberFormatException e){
+                                System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
+                                continue;
+                            }catch (IndexOutOfBoundsException e){
+                                System.out.println("\n!!! Podano błędny numer !!!\n");
                                 continue;
                             }
 
@@ -170,7 +193,7 @@ public class Main {
                             try {
                                 AllEmployeeRaportChoice = Integer.parseInt(scanner.nextLine());
                             }catch (NumberFormatException e){
-                                System.out.println("\nZły format danych wejściowych lub pusty ciąg znaków\n");
+                                System.out.println("\n!!! Zły format danych wejściowych lub pusty ciąg znaków !!!\n");
                                 continue;
                             }
 
@@ -178,31 +201,44 @@ public class Main {
 
                                 case 1: {
                                     for (Person person : personList) {
-                                        person.showSickLeave();
-                                        System.out.println();
+                                        if(person.getCompany().getName().equals(selectedCompany.getName())) {
+                                            person.showSickLeave();
+                                        }
                                     }
                                     break;
                                 }
 
                                 case 2: {
                                     for (Person person : personList) {
-                                        person.showNumbersOfDaysOnSickkLeave();
+                                        if(person.getCompany().getName().equals(selectedCompany.getName())) {
+                                            person.showNumbersOfDaysOnSickkLeave();
+                                        }
                                     }
                                     break;
                                 }
 
                                 case 3: {
                                     for (Person person : personList) {
-                                        person.showEmployeeWherePaysOffice();
+                                        if(person.getCompany().getName().equals(selectedCompany.getName())) {
+                                            person.showEmployeeWherePaysOffice();
+                                        }
                                     }
                                     break;
                                 }
 
                                 case 4: {
                                     for (Person person : personList) {
-                                        person.showBasicInformation();
-                                        System.out.println();
+                                        if(person.getCompany().getName().equals(selectedCompany.getName())){
+                                            person.showBasicInformation();
+                                        }
+
                                     }
+                                    break;
+                                }
+
+                                default:{
+                                    System.out.println("\n!!! Podano błędny numer !!!\n");
+                                    continue;
                                 }
                             }
                         }
